@@ -1,33 +1,18 @@
+#![crate_name = "morq"]
+#![crate_type = "lib"]
 
 mod core;
+
+#[macro_use]
+pub mod grammar;
 pub mod asserts;
-
-macro_rules! morq {
-    (( $TOPIC:expr ) . $($rest:tt)*) => {
-        println!("Start -> {}", stringify!($TOPIC));
-        morq!($TOPIC, $($rest)*);
-    };
-    ($VAL:expr, be ( $TOPIC:expr ) $($rest:tt)*) => {
-        println!("{} <- End: {}", stringify!($TOPIC), $VAL);
-        assert_eq!($TOPIC, $VAL);
-        morq!($($rest)*);
-    };
-    ($VAL:expr, to.$($rest:tt)+) => {
-        println!("to");
-        morq!($VAL, $($rest)*);
-    };
-    (; $($rest:tt)*) => {
-        println!("terminate");
-        morq!($($rest)*);
-    };
-    () => ()
-}
-
 
 #[cfg(test)]
 mod tests {
     #[test]
     fn grammar_test() {
+        use core::Assert;
+        use asserts::equal::Equal;
 
         morq!(
             (3 * 5).to.be(15);
