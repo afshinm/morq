@@ -61,7 +61,7 @@ To check the type.
 
 ```rust
 expect(30).to.be.a(i32);
-expect("hola".to_string()).to.be.a(String);
+expect("hola".to_string()).to.not.be.a(f32);
 ```
 
 ## FAQ
