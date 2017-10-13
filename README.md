@@ -52,7 +52,7 @@ Negates the chain.
 
 ```rust
 expect(30).to.not.equal(10);
-expect(3).to.equal(1);
+expect(3).to.not.equal(1);
 ```
 
 ### A / An
