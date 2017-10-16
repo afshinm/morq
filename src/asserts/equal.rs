@@ -1,20 +1,24 @@
 use core::AssertResult;
 use core::Assert;
 
-pub struct Equal;
+pub struct Equal<T> {
+    expected: T
+}
 
-impl Equal {
-    pub fn new() -> Equal {
-        Equal {}
+impl Equal<T> {
+    pub fn new(expected: T) -> Equal<T> {
+        Equal {
+            expected: expected 
+        }
     }
 }
 
-impl Assert for Equal {
-    fn compare<L: PartialEq<R>, R>(self, left: L, right: R) -> AssertResult {
-        if left.eq(&right) {
+impl<T> Assert for Equal<T> {
+    fn compare<L: PartialEq<R>, R>(self, target: R) -> AssertResult {
+        if self.expected.eq(&target) {
             Ok(())
         } else {
-            Err("Didn't match.".to_string())
+            Err(!format("Expected {}, received {}", self.expected, target))
         }
     }
 }

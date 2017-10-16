@@ -15,10 +15,9 @@ mod tests {
         use asserts::equal::Equal;
 
         morq!(
-            (3 * 5).to.be(15);
-            (50).to.be(5 * 10);
+            expect(3 * 5).to.be.equal(15);
+            expect(3 * 5).to.not.be.equal(15);
+            expect(50).to.be.equal(5 * 10);
         );
-
-        //assert_eq!(2 + 2, 4);
     }
 }
