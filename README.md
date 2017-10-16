@@ -52,7 +52,7 @@ Negates the chain.
 
 ```rust
 expect(30).to.not.equal(10);
-expect(3).to.equal(1);
+expect(3).to.not.equal(1);
 ```
 
 ### A / An
@@ -61,7 +61,7 @@ To check the type.
 
 ```rust
 expect(30).to.be.a(i32);
-expect("hola".to_string()).to.be.a(String);
+expect("hola".to_string()).to.not.be.a(f32);
 ```
 
 ## FAQ
