@@ -1,7 +1,7 @@
 #[macro_export]
 macro_rules! morq {
     (expect( $VALUE:expr ) . $($rest:tt)*) => {
-        println!("Start -> {}", stringify!($VALUE));
+        //println!("Start -> {}", stringify!($VALUE));
 
         // here we are passing the value to be used
         // in other target rules
@@ -20,35 +20,36 @@ macro_rules! morq {
 
     // neutral rule
     ($POSITIVE:expr, $VALUE:expr, be . $($rest:tt)*) => {
-        println!("{} <- End: {}", stringify!($TOPIC), $VALUE);
+        //println!("{} <- End: {}", stringify!($TOPIC), $VALUE);
         morq!($POSITIVE, $VALUE, $($rest)*);
     };
 
     // neutral rule
     ($POSITIVE:expr, $VALUE:expr, to . $($rest:tt)*) => {
-        println!("to");
+        //println!("to");
         morq!($POSITIVE, $VALUE, $($rest)*);
     };
 
     // neutral rule
     ($POSITIVE:expr, $VALUE:expr, have . $($rest:tt)*) => {
-        println!("have");
+        //println!("have");
         morq!($POSITIVE, $VALUE, $($rest)*);
     };
 
     // negate rule
     ($POSITIVE:expr, $VALUE:expr, not . $($rest:tt)*) => {
-        println!("not");
+        //println!("not");
         morq!(!$POSITIVE, $VALUE, $($rest)*);
     };
 
     ($POSITIVE:expr, $VALUE:expr, equal ( $TARGET:expr ) $($rest:tt)*) => {
-        println!("{} <- Equal ({}): {}", stringify!($TARGET), $POSITIVE, $VALUE);
+        //println!("{} <- Equal ({}): {}", stringify!($TARGET), $POSITIVE, $VALUE);
 
         if $POSITIVE {
-            println!("{:?}", Equal::new($VALUE).compare($TARGET));
+            //assert_eq!($VALUE, $TARGET);
+            evaluate(Equal::new($VALUE).compare($TARGET));
         } else {
-            println!("ugh :(");
+            evaluate(NotEqual::new($VALUE).compare($TARGET));
         }
 
         morq!($($rest)*);
@@ -56,7 +57,7 @@ macro_rules! morq {
 
     // end of one rule
     (; $($rest:tt)*) => {
-        println!("terminate");
+        //println!("terminate");
         morq!($($rest)*);
     };
     () => ();

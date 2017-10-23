@@ -1,18 +1,23 @@
 use core::AssertResult;
 use core::Assert;
+use std::fmt;
 
-pub struct NotEqual;
+pub struct NotEqual<L> {
+    expected: L,
+}
 
-impl NotEqual {
-    pub fn new() -> NotEqual {
-        NotEqual {}
+impl<L> NotEqual<L> {
+    pub fn new(expected: L) -> NotEqual<L> {
+        NotEqual { expected }
     }
 }
 
-impl Assert for NotEqual {
-    fn compare<L: PartialEq<R>, R>(self, left: L, right: R) -> AssertResult {
-        if left.eq(&right) {
-            Err(!format("{} equals to {}", left, right))
+impl<L: fmt::Debug> Assert<L> for NotEqual<L>
+{
+    fn compare<R: PartialEq<L> + fmt::Debug>(self, target: R) -> AssertResult 
+    {
+        if target == self.expected {
+            Err(format!("{:?} should not be equal to {:?}", self.expected, target))
         } else {
             Ok(())
         }
