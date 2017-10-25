@@ -1,8 +1,6 @@
 #[macro_export]
 macro_rules! morq {
     (expect( $VALUE:expr ) . $($rest:tt)*) => {
-        //println!("Start -> {}", stringify!($VALUE));
-
         // here we are passing the value to be used
         // in other target rules
         // TODO: is this the best way to share data between rules?
@@ -20,36 +18,39 @@ macro_rules! morq {
 
     // neutral rule
     ($POSITIVE:expr, $VALUE:expr, be . $($rest:tt)*) => {
-        //println!("{} <- End: {}", stringify!($TOPIC), $VALUE);
         morq!($POSITIVE, $VALUE, $($rest)*);
     };
 
     // neutral rule
     ($POSITIVE:expr, $VALUE:expr, to . $($rest:tt)*) => {
-        //println!("to");
         morq!($POSITIVE, $VALUE, $($rest)*);
     };
 
     // neutral rule
     ($POSITIVE:expr, $VALUE:expr, have . $($rest:tt)*) => {
-        //println!("have");
         morq!($POSITIVE, $VALUE, $($rest)*);
     };
 
     // negate rule
     ($POSITIVE:expr, $VALUE:expr, not . $($rest:tt)*) => {
-        //println!("not");
         morq!(!$POSITIVE, $VALUE, $($rest)*);
     };
 
     ($POSITIVE:expr, $VALUE:expr, equal ( $TARGET:expr ) $($rest:tt)*) => {
-        //println!("{} <- Equal ({}): {}", stringify!($TARGET), $POSITIVE, $VALUE);
-
         if $POSITIVE {
-            //assert_eq!($VALUE, $TARGET);
-            evaluate(Equal::new($VALUE).compare($TARGET));
+            evaluate(Equal::new().compare($VALUE, $TARGET));
         } else {
-            evaluate(NotEqual::new($VALUE).compare($TARGET));
+            evaluate(NotEqual::new().compare($VALUE, $TARGET));
+        }
+
+        morq!($($rest)*);
+    };
+
+    ($POSITIVE:expr, $VALUE:expr, close ( $TARGET:expr ) $($rest:tt)*) => {
+        if $POSITIVE {
+            evaluate(Close::new().compare($VALUE, $TARGET));
+        } else {
+            //evaluate(close::Close::new($VALUE).compare($TARGET));
         }
 
         morq!($($rest)*);
@@ -57,7 +58,6 @@ macro_rules! morq {
 
     // end of one rule
     (; $($rest:tt)*) => {
-        //println!("terminate");
         morq!($($rest)*);
     };
     () => ();

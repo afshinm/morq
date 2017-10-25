@@ -1,27 +1,23 @@
 use core::AssertResult;
 use core::Assert;
-use std::fmt;
+use std::fmt::Debug;
 
-pub struct Equal<L> {
-    expected: L
-}
+pub struct Equal;
 
-impl<L> Equal<L> {
-    pub fn new(expected: L) -> Equal<L> {
-        Equal {
-            expected: expected 
-        }
+impl Equal {
+    pub fn new() -> Equal {
+        Equal { }
     }
 }
 
-impl<L: fmt::Debug> Assert<L> for Equal<L>
+impl<L: Debug + PartialEq<L>> Assert<L> for Equal
 {
-    fn compare<R: PartialEq<L> + fmt::Debug>(self, target: R) -> AssertResult 
+    fn compare(self, expected: L, target: L) -> AssertResult 
     {
-        if target == self.expected {
+        if expected == target {
             Ok(())
         } else {
-            Err(format!("Expected {:?}, received {:?}", self.expected, target))
+            Err(format!("Expected {:?}, received {:?}", expected, target))
         }
     }
 }

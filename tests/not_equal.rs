@@ -3,10 +3,7 @@ extern crate morq;
 
 #[cfg(test)]
 mod not_equal_tests {
-    use morq::core::Assert;
-    use morq::core::evaluate;
-    use morq::asserts::equal::Equal;
-    use morq::asserts::not_equal::NotEqual;
+    use morq::prelude::*;
 
     #[test]
     fn test_i16() {
