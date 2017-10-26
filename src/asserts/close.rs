@@ -13,16 +13,16 @@ impl Close {
 
 impl<L: Debug + Float> Assert<L> for Close
 {
-    fn compare(self, expected: L, target: L) -> AssertResult 
+    fn compare(&self, expected: L, target: L) -> AssertResult 
     {
         let eps = Float::epsilon();
 
         if (target - expected).abs() < eps {
-            Ok(())
+            Ok(format!("{:?} is close to {:?}", target, expected))
         } else {
-            Err(format!("assertion failed: `(left !== right)` \
-                         (left: `{:?}`, right: `{:?}`, expect diff: `{:?}`, real diff: `{:?}`)",
-                         target, expected, eps, (target - expected).abs()))
+            Err(format!(
+                    "(left: `{:?}`, right: `{:?}`, expect diff: `{:?}`, real diff: `{:?}`)",
+                    target, expected, eps, (target - expected).abs()))
         }
     }
 }

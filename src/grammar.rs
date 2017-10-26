@@ -7,57 +7,50 @@ macro_rules! morq {
         //
         // Format is:
         //
-        //  $positive, $value, $($rest)*
+        //  $ACTIVATOR, $NOT, $value, $($rest)*
         //
-        // where $positive shows if the chain is a positive sentence
+        // where $ACTIVATOR is the activation assert
+        //       $NOT shows if the chain is a negative sentence
         //       $value indicates the expected value
         //       $rest is a tt
         //
-        morq!(true, $VALUE, $($rest)*);
+        morq!(Unknown, false, $VALUE, $($rest)*);
     };
 
-    // neutral rule
-    ($POSITIVE:expr, $VALUE:expr, be . $($rest:tt)*) => {
-        morq!($POSITIVE, $VALUE, $($rest)*);
+    // be - neutral rule
+    ($ACTIVATOR:ident, $NOT:expr, $VALUE:expr, be . $($rest:tt)*) => {
+        morq!($ACTIVATOR, $NOT, $VALUE, $($rest)*);
     };
 
-    // neutral rule
-    ($POSITIVE:expr, $VALUE:expr, to . $($rest:tt)*) => {
-        morq!($POSITIVE, $VALUE, $($rest)*);
+    // to - neutral rule
+    ($ACTIVATOR:ident, $NOT:expr, $VALUE:expr, to . $($rest:tt)*) => {
+        morq!($ACTIVATOR, $NOT, $VALUE, $($rest)*);
     };
 
-    // neutral rule
-    ($POSITIVE:expr, $VALUE:expr, have . $($rest:tt)*) => {
-        morq!($POSITIVE, $VALUE, $($rest)*);
+    // have - neutral rule
+    ($ACTIVATOR:ident, $NOT:expr, $VALUE:expr, have . $($rest:tt)*) => {
+        morq!($ACTIVATOR, $NOT, $VALUE, $($rest)*);
     };
 
-    // negate rule
-    ($POSITIVE:expr, $VALUE:expr, not . $($rest:tt)*) => {
-        morq!(!$POSITIVE, $VALUE, $($rest)*);
+    // not - negate rule
+    ($ACTIVATOR:ident, $NOT:expr, $VALUE:expr, not . $($rest:tt)*) => {
+        morq!($ACTIVATOR, !$NOT, $VALUE, $($rest)*);
     };
 
-    ($POSITIVE:expr, $VALUE:expr, equal ( $TARGET:expr ) $($rest:tt)*) => {
-        if $POSITIVE {
-            evaluate(Equal::new().compare($VALUE, $TARGET));
-        } else {
-            evaluate(NotEqual::new().compare($VALUE, $TARGET));
-        }
-
-        morq!($($rest)*);
+    // equal - negate rule
+    ($ACTIVATOR:ident, $NOT:expr, $VALUE:expr, equal ( $TARGET:expr ) $($rest:tt)*) => {
+        morq!(Equal, $NOT, $VALUE, $TARGET, $($rest)*);
     };
 
-    ($POSITIVE:expr, $VALUE:expr, close ( $TARGET:expr ) $($rest:tt)*) => {
-        if $POSITIVE {
-            evaluate(Close::new().compare($VALUE, $TARGET));
-        } else {
-            //evaluate(close::Close::new($VALUE).compare($TARGET));
-        }
-
-        morq!($($rest)*);
+    // close - negate rule
+    ($ACTIVATOR:ident, $NOT:expr, $VALUE:expr, close ( $TARGET:expr ) $($rest:tt)*) => {
+        morq!(Close, $NOT, $VALUE, $TARGET, $($rest)*);
     };
 
     // end of one rule
-    (; $($rest:tt)*) => {
+    ($ACTIVATOR:ident, $NOT:expr, $VALUE:expr, $TARGET:expr, ; $($rest:tt)*) => {
+        evaluate(&$ACTIVATOR::new(), $VALUE, $TARGET, $NOT);
+
         morq!($($rest)*);
     };
     () => ();

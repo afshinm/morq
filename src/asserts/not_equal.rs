@@ -12,7 +12,7 @@ impl NotEqual {
 
 impl<L: Debug + PartialEq<L>> Assert<L> for NotEqual
 {
-    fn compare(self, expected: L, target: L) -> AssertResult 
+    fn compare(&self, expected: L, target: L) -> AssertResult 
     {
         if expected == target {
             Err(format!("{:?} should not be equal to {:?}", expected, target))
