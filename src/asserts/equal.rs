@@ -6,14 +6,12 @@ pub struct Equal;
 
 impl Equal {
     pub fn new() -> Equal {
-        Equal { }
+        Equal {}
     }
 }
 
-impl<L: Debug + PartialEq<L>> Assert<L> for Equal
-{
-    fn compare(&self, expected: L, target: L) -> AssertResult 
-    {
+impl<L: Debug + PartialEq<L>> Assert<L> for Equal {
+    fn compare(&self, expected: L, target: L) -> AssertResult {
         if expected == target {
             Ok(format!("{:?} is equal to {:?}", expected, target))
         } else {
