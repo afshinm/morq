@@ -1,6 +1,8 @@
 # morq
 Write unit tests like humans
 
+[![Build Status](https://travis-ci.com/afshinm/morq.svg?token=ACapzCFmBh92g8rnRsrq&branch=master)](https://travis-ci.com/afshinm/morq)
+
 <img src="http://clipart-library.com/images/qcBAnE68i.png" width="200" />
 
 
