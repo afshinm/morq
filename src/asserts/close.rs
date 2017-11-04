@@ -11,11 +11,11 @@ impl Close {
     }
 }
 
-impl<L: Debug + Float> Assert<L> for Close {
+impl<L: Debug + Float> Assert<L, L> for Close {
     fn compare(&self, expected: L, target: L) -> AssertResult {
         let eps = Float::epsilon();
 
-        if (target - expected).abs() < eps {
+        if (target - expected) < eps {
             Ok(format!("{:?} is close to {:?}", target, expected))
         } else {
             Err(format!(

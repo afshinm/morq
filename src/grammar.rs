@@ -3,11 +3,10 @@ macro_rules! morq {
     (expect( $VALUE:expr ) . $($rest:tt)*) => {
         // here we are passing the value to be used
         // in other target rules
-        // TODO: is this the best way to share data between rules?
         //
         // Format is:
         //
-        //  $ACTIVATOR, $NOT, $value, $($rest)*
+        //  $ACTIVATOR, $NOT, $VALUE, $($rest)*
         //
         // where $ACTIVATOR is the activation assert
         //       $NOT shows if the chain is a negative sentence
@@ -37,17 +36,31 @@ macro_rules! morq {
         morq!($ACTIVATOR, !$NOT, $VALUE, $($rest)*);
     };
 
-    // equal - negate rule
+    // equal
     ($ACTIVATOR:ident, $NOT:expr, $VALUE:expr, equal ( $TARGET:expr ) $($rest:tt)*) => {
         morq!(Equal, $NOT, $VALUE, $TARGET, $($rest)*);
     };
 
-    // close - negate rule
+    // close
     ($ACTIVATOR:ident, $NOT:expr, $VALUE:expr, close ( $TARGET:expr ) $($rest:tt)*) => {
         morq!(Close, $NOT, $VALUE, $TARGET, $($rest)*);
     };
 
-    // end of one rule
+    // a (to match data type)
+    ($ACTIVATOR:ident, $NOT:expr, $VALUE:expr, a ( $TARGET:ty ) $($rest:tt)*) => {
+        morq!(TypeMatch, $NOT, $VALUE, $TARGET, $($rest)*);
+    };
+
+    // end of a rule
+    // used for type check only
+    // TODO: can we merge this one with the $TARGET:expr target?
+    ($ACTIVATOR:ident, $NOT:expr, $VALUE:expr, $TARGET:ty, ; $($rest:tt)*) => {
+        evaluate(&$ACTIVATOR::new(), $VALUE, ::std::any::TypeId::of::<$TARGET>(), $NOT);
+
+        morq!($($rest)*);
+    };
+
+    // end of a rule
     ($ACTIVATOR:ident, $NOT:expr, $VALUE:expr, $TARGET:expr, ; $($rest:tt)*) => {
         evaluate(&$ACTIVATOR::new(), $VALUE, $TARGET, $NOT);
 

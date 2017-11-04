@@ -12,4 +12,5 @@ pub mod prelude {
     pub use core::evaluate;
     pub use asserts::close::Close;
     pub use asserts::equal::Equal;
+    pub use asserts::type_match::TypeMatch;
 }

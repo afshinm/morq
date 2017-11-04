@@ -10,8 +10,8 @@ impl Equal {
     }
 }
 
-impl<L: Debug + PartialEq<L>> Assert<L> for Equal {
-    fn compare(&self, expected: L, target: L) -> AssertResult {
+impl<L: Debug + PartialEq<R>, R: Debug> Assert<L, R> for Equal {
+    fn compare(&self, expected: L, target: R) -> AssertResult {
         if expected == target {
             Ok(format!("{:?} is equal to {:?}", expected, target))
         } else {
