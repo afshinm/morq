@@ -31,9 +31,9 @@ mod type_check_tests {
     #[test]
     fn test_a_integer() {
         morq!(
-            expect(123).to.be.a(i32);
-            expect(123i64).to.be.a(i64);
-            expect(-123).to.be.a(i32);
+            expect(123).to.be.an(i32);
+            expect(123i64).to.be.an(i64);
+            expect(-123).to.be.an(i32);
         );
     }
 

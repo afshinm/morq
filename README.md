@@ -6,7 +6,6 @@ Write unit tests like humans
 <img src="http://clipart-library.com/images/qcBAnE68i.png" width="200" />
 
 
-
 ## Grammar
 
 Since we are using a macro here, you need to wrap the following rules in `morq!` macro.
@@ -19,26 +18,13 @@ morq!(
 );
 ```
 
-
 ### Chains
 
 You use following chains to make the assertions more user friendly and readable.
 
  - to
  - be
- - been
- - is
- - that
- - which
- - and
- - has
  - have
- - with
- - at
- - of
- - same
- - but
- - does
 
 ### Equal
 
@@ -47,30 +33,52 @@ expect(30).to.equal(10 * 3);
 expect(3).to.equal(1 + 2);
 ```
 
+### Close
+
+To compare two given `float` values
+
+```rust
+expect(3f32).to.be.close(3.0001f32);
+```
+
 ### Not
 
 Negates the chain.
 
 
 ```rust
-expect(30).to.not.equal(10);
-expect(3).to.not.equal(1);
+expect(30).to.not.be.equal(10);
+expect(3).to.not.be.equal(1);
+expect(vec![1, 2, 3]).to.not.be.a(Vec<char>);
 ```
 
 ### A / An
 
-To check the type.
+To check the data type.
 
 ```rust
-expect(30).to.be.a(i32);
+expect(30).to.be.an(i32);
 expect("hola".to_string()).to.not.be.a(f32);
+expect(vec![1, 2, 3]).to.be.a(Vec<i32>);
 ```
+
+## Roadmap
+
+- Adding more chain rules
+- Adding more assert (terminal) 
+- Ability to add two asserts in one chain:
+
+  ```rust
+  expect("hello").to.be.equal("hello").and.not.be.a(i32);
+  ```
 
 ## FAQ
 
 ### morq?
 
-Means chicken in Farsi. Like a lazy chicken, you know.
+Means chicken in Farsi. Like a lazy chicken, you know.  
+
+Artwork: clipart-library.com
 
 ### Author
 

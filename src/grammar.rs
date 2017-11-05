@@ -36,18 +36,27 @@ macro_rules! morq {
         morq!($ACTIVATOR, !$NOT, $VALUE, $($rest)*);
     };
 
+    // terminal rule
     // equal
     ($ACTIVATOR:ident, $NOT:expr, $VALUE:expr, equal ( $TARGET:expr ) $($rest:tt)*) => {
         morq!(Equal, $NOT, $VALUE, $TARGET, $($rest)*);
     };
 
+    // terminal rule
     // close
     ($ACTIVATOR:ident, $NOT:expr, $VALUE:expr, close ( $TARGET:expr ) $($rest:tt)*) => {
         morq!(Close, $NOT, $VALUE, $TARGET, $($rest)*);
     };
 
+    // terminal rule
     // a (to match data type)
     ($ACTIVATOR:ident, $NOT:expr, $VALUE:expr, a ( $TARGET:ty ) $($rest:tt)*) => {
+        morq!(TypeMatch, $NOT, $VALUE, $TARGET, $($rest)*);
+    };
+
+    // terminal rule
+    // an (to match data type)
+    ($ACTIVATOR:ident, $NOT:expr, $VALUE:expr, an ( $TARGET:ty ) $($rest:tt)*) => {
         morq!(TypeMatch, $NOT, $VALUE, $TARGET, $($rest)*);
     };
 
