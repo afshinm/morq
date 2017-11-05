@@ -14,7 +14,7 @@ Example:
 
 ```rust
 morq!(
-  expect(3).to.a(i32);
+  expect(3).to.be.a(i32);
 );
 ```
 
@@ -29,8 +29,8 @@ You use following chains to make the assertions more user friendly and readable.
 ### Equal
 
 ```rust
-expect(30).to.equal(10 * 3);
-expect(3).to.equal(1 + 2);
+expect(30).to.be.equal(10 * 3);
+expect(3).to.be.equal(1 + 2);
 ```
 
 ### Close
