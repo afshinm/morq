@@ -62,6 +62,15 @@ expect("hola".to_string()).to.not.be.a(f32);
 expect(vec![1, 2, 3]).to.be.a(Vec<i32>);
 ```
 
+### Empty
+
+To check and see if the iterator is empty or not
+
+```rust
+expect(vec![1, 2, 3].iter()).to.not.be.empty();
+expect(0..2).to.not.be.empty();
+```
+
 ## Roadmap
 
 - Adding more chain rules

@@ -49,6 +49,12 @@ macro_rules! morq {
     };
 
     // terminal rule
+    // empty
+    ($ACTIVATOR:ident, $NOT:expr, $VALUE:expr, empty ( ) $($rest:tt)*) => {
+        morq!(Empty, $NOT, $VALUE, 0, $($rest)*);
+    };
+
+    // terminal rule
     // a (to match data type)
     ($ACTIVATOR:ident, $NOT:expr, $VALUE:expr, a ( $TARGET:ty ) $($rest:tt)*) => {
         morq!(TypeMatch, $NOT, $VALUE, $TARGET, $($rest)*);
