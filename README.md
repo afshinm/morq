@@ -71,6 +71,15 @@ expect(vec![1, 2, 3].iter()).to.not.be.empty();
 expect(0..2).to.not.be.empty();
 ```
 
+### LengthOf
+
+To check the count of elements in an iterator
+
+```rust
+expect(vec![1, 2, 3].iter()).to.not.have.lengthOf(1usize);
+expect(0..3).to.have.lengthOf(3usize);
+```
+
 ## Roadmap
 
 - Adding more chain rules

@@ -14,4 +14,5 @@ pub mod prelude {
     pub use asserts::equal::Equal;
     pub use asserts::type_match::TypeMatch;
     pub use asserts::empty::Empty;
+    pub use asserts::length_of::LengthOf;
 }
