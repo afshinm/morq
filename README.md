@@ -145,6 +145,6 @@ Afshin Mehrabani
 
 ### License
 
-GPLv3  
+MIT
 
 Inspired by http://chaijs.com and https://github.com/carllerche/hamcrest-rust
