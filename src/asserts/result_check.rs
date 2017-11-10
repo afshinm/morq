@@ -10,12 +10,12 @@ impl ResultCheck {
     }
 }
 
-impl<L: Iterator + Clone + Debug, R> Assert<L, R> for ResultCheck {
+impl<L: Iterator + Debug, R> Assert<L, R> for ResultCheck {
     fn compare(&self, expected: L, _target: R) -> AssertResult {
-        if expected.clone().count() > 0 {
-            Ok(format!("Given expression returned Ok: {:?}", expected))
+        if expected.count() > 0 {
+            Ok(format!("Given expression returned Ok"))
         } else {
-            Err(format!("Given expression returned Err: {:?}", expected))
+            Err(format!("Given expression returned Err"))
         }
     }
 }
