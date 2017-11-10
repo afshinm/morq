@@ -37,6 +37,18 @@ macro_rules! morq {
     };
 
     // terminal rule
+    // true
+    ($ACTIVATOR:ident, $NOT:expr, $VALUE:expr, true ( ) $($rest:tt)*) => {
+        morq!(Equal, $NOT, $VALUE, true, $($rest)*);
+    };
+
+    // terminal rule
+    // false
+    ($ACTIVATOR:ident, $NOT:expr, $VALUE:expr, false ( ) $($rest:tt)*) => {
+        morq!(Equal, $NOT, $VALUE, false, $($rest)*);
+    };
+
+    // terminal rule
     // ok
     ($ACTIVATOR:ident, $NOT:expr, $VALUE:expr, ok ( ) $($rest:tt)*) => {
         // TODO: ugh. this is not a good way to test Result
@@ -45,7 +57,7 @@ macro_rules! morq {
     };
 
     // terminal rule
-    // ok
+    // err
     ($ACTIVATOR:ident, $NOT:expr, $VALUE:expr, err ( ) $($rest:tt)*) => {
         morq!(ResultCheck, !$NOT, $VALUE.into_iter(), 0, $($rest)*);
     };
