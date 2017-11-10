@@ -80,11 +80,52 @@ expect(vec![1, 2, 3].iter()).to.not.have.lengthOf(1usize);
 expect(0..3).to.have.lengthOf(3usize);
 ```
 
+### Contain
+
+Given iterator must contain the element
+
+```rust
+expect(vec![1, 2, 3].iter()).to.contain(&2);
+expect(vec![false, false].iter()).to.not.contain(&true);
+```
+
+### Ok / Err
+
+To check a Result enum
+
+```rust
+let res: Result<String, String> = Ok(format!("boo"));
+
+morq!(
+    expect(res).to.be.ok();
+);
+```
+
+```rust
+let res: Result<String, String> = Err(format!("boo"));
+
+morq!(
+    expect(res).to.be.err();
+);
+```
+
+Of course, you can combine it with `not`:
+
+
+```rust
+let res: Result<String, String> = Err(format!("boo"));
+
+morq!(
+    expect(res).to.not.be.ok();
+);
+```
+
 ## Roadmap
 
 - Adding more chain rules
 - Adding more assert (terminal) 
-- Ability to add two asserts in one chain:
+- Adding alias for existing terminal rules (e.g. `close_to` alias for `close`)
+- Ability to add two or more asserts in one chain:
 
   ```rust
   expect("hello").to.be.equal("hello").and.not.be.a(i32);
