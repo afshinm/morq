@@ -1,6 +1,9 @@
 [package]
 name = "morq"
-version = "0.2.1"
+version = "0.2.2"
+readme = "README.md"
+keywords = ["bdd", "tdd", "unit test", "unit testing"]
+categories = ["development-tools::testing", "development-tools"]
 homepage = "http://morq.rs"
 repository = "https://github.com/afshinm/morq"
 description = "TDD/BDD assertion interface"
