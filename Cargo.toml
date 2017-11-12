@@ -1,8 +1,10 @@
 [package]
 name = "morq"
-version = "0.2.0"
+version = "0.2.1"
+homepage = "http://morq.rs"
+repository = "https://github.com/afshinm/morq"
 description = "TDD/BDD assertion interface"
-license = "GPL-3.0"
+license = "MIT"
 authors = ["Afshin Mehrabani <afshin.meh@gmail.com>"]
 
 [dependencies]
