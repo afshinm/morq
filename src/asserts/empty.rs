@@ -10,9 +10,9 @@ impl Empty {
     }
 }
 
-impl<L: Debug + Iterator + Clone, R> Assert<L, R> for Empty {
+impl<L: Debug + IntoIterator + Clone, R> Assert<L, R> for Empty {
     fn compare(&self, expected: L, _target: R) -> AssertResult {
-        match expected.clone().next() {
+        match expected.clone().into_iter().next() {
             None => Ok(format!(
                 "Given iterator {:?} has one or more items.",
                 expected

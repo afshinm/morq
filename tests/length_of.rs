@@ -8,16 +8,16 @@ mod length_of_tests {
     #[test]
     fn test_correct_length() {
         morq!(
-            expect(vec![1, 2, 3].iter()).to.have.lengthOf(3usize);
-            expect(0..3).to.have.lengthOf(3usize);
+            expect(vec![1, 2, 3]).to.have.length_of(3usize);
+            expect(0..3).to.have.length_of(3usize);
         );
     }
 
     #[test]
     fn test_incorrect_length() {
         morq!(
-            expect(vec![1, 2, 3].iter()).to.not.have.lengthOf(1usize);
-            expect(0..3).to.not.have.lengthOf(0usize);
+            expect(vec![1, 2, 3]).to.not.have.length_of(1usize);
+            expect(0..3).to.not.have.length_of(0usize);
         );
     }
 }

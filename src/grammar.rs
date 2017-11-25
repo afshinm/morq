@@ -75,6 +75,12 @@ macro_rules! morq {
     };
 
     // terminal rule
+    // close_to
+    ($ACTIVATOR:ident, $NOT:expr, $VALUE:expr, close_to ( $TARGET:expr ) $($rest:tt)*) => {
+        morq!(Close, $NOT, $VALUE, $TARGET, $($rest)*);
+    };
+
+    // terminal rule
     // empty
     ($ACTIVATOR:ident, $NOT:expr, $VALUE:expr, empty ( ) $($rest:tt)*) => {
         morq!(Empty, $NOT, $VALUE, 0, $($rest)*);
@@ -82,7 +88,7 @@ macro_rules! morq {
 
     // terminal rule
     // empty
-    ($ACTIVATOR:ident, $NOT:expr, $VALUE:expr, lengthOf ( $TARGET:expr ) $($rest:tt)*) => {
+    ($ACTIVATOR:ident, $NOT:expr, $VALUE:expr, length_of ( $TARGET:expr ) $($rest:tt)*) => {
         morq!(LengthOf, $NOT, $VALUE, $TARGET, $($rest)*);
     };
 

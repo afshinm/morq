@@ -12,9 +12,10 @@ impl LengthOf {
     }
 }
 
-impl<L: Debug + Iterator + Clone, R: Unsigned + ToPrimitive + Display> Assert<L, R> for LengthOf {
+impl<L: Debug + IntoIterator + Clone, R: Unsigned + ToPrimitive + Display> Assert<L, R>
+    for LengthOf {
     fn compare(&self, expected: L, target: R) -> AssertResult {
-        let expected_count = expected.clone().count();
+        let expected_count = expected.clone().into_iter().count();
 
         if expected_count == target.to_usize().unwrap() {
             Ok(format!(

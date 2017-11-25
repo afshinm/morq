@@ -18,8 +18,8 @@ mod empty_tests {
         let empty_vec: Vec<i32> = Vec::new();
 
         morq!(
-            expect(vec![1, 2, 3].iter()).to.not.be.empty();
-            expect(empty_vec.iter()).to.be.empty();
+            expect(vec![1, 2, 3]).to.not.be.empty();
+            expect(empty_vec).to.be.empty();
         );
     }
 }
