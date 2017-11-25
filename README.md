@@ -21,7 +21,7 @@ Example:
 
 ```rust
 morq!(
-  expect(3).to.be.a(i32);
+  expect(3).to.be.an(i32);
 );
 ```
 
@@ -46,6 +46,7 @@ To compare two given `float` values
 
 ```rust
 expect(3f32).to.be.close(3.0001f32);
+expect(3f32).to.be.close_to(3.0001f32);
 ```
 
 ### Not
@@ -74,7 +75,7 @@ expect(vec![1, 2, 3]).to.be.a(Vec<i32>);
 To check and see if the iterator is empty or not
 
 ```rust
-expect(vec![1, 2, 3].iter()).to.not.be.empty();
+expect(vec![1, 2, 3]).to.not.be.empty();
 expect(0..2).to.not.be.empty();
 ```
 
@@ -83,8 +84,8 @@ expect(0..2).to.not.be.empty();
 To check the count of elements in an iterator
 
 ```rust
-expect(vec![1, 2, 3].iter()).to.not.have.lengthOf(1usize);
-expect(0..3).to.have.lengthOf(3usize);
+expect(vec![1, 2, 3]).to.not.have.length_of(1usize);
+expect(0..3).to.have.length_of(3usize);
 ```
 
 ### Contain
@@ -92,8 +93,8 @@ expect(0..3).to.have.lengthOf(3usize);
 Given iterator must contain the element
 
 ```rust
-expect(vec![1, 2, 3].iter()).to.contain(&2);
-expect(vec![false, false].iter()).to.not.contain(&true);
+expect(vec![1, 2, 3]).to.contain(2);
+expect(vec![false, false]).to.not.contain(true);
 ```
 
 ### Ok / Err
@@ -131,7 +132,6 @@ morq!(
 
 - Adding more chain rules
 - Adding more assert (terminal) 
-- Adding alias for existing terminal rules (e.g. `close_to` alias for `close`)
 - Ability to add two or more asserts in one chain:
 
   ```rust
