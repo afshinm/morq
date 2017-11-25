@@ -1,6 +1,6 @@
 [package]
 name = "morq"
-version = "0.2.2"
+version = "0.3.0"
 readme = "README.md"
 keywords = ["bdd", "tdd", "unit-test", "unit-testing"]
 categories = ["development-tools::testing", "development-tools"]
